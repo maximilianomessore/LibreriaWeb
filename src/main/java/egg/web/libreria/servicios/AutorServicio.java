@@ -56,4 +56,9 @@ public class AutorServicio {
         List<Autor> autores = autorrepositorio.buscarAutor();
         return autores;
     }
+    
+    public Autor buscarAutorPorId( String id){
+        return autorrepositorio.buscarAutorPorId(id);
+    }
+    
 }

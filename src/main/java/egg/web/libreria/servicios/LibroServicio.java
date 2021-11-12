@@ -22,7 +22,7 @@ public class LibroServicio {
     @Autowired
     private EditorialRepositorio editorialrepositorio;
     @Transactional
-    public void crearLibro(String titulo, Integer anio, Integer cant_ejemplares, Integer cant_prestados, Integer cant_restantes, Boolean alta, String idAutor, String idEditorial) throws ErroresSistema{
+    public void crearLibro(Long ISBN,String titulo, Integer anio, Integer cant_ejemplares, Integer cant_prestados, Integer cant_restantes, Boolean alta, String idAutor, String idEditorial) throws ErroresSistema{
         validar(titulo,anio,cant_ejemplares,cant_prestados,cant_restantes,alta);
         Libro libro = new Libro();
         libro.setAlta(alta);
@@ -31,6 +31,7 @@ public class LibroServicio {
         libro.setEjemplaresPrestados(cant_prestados);
         libro.setEjemplaresRestantes(cant_restantes);
         libro.setTitulo(titulo);
+        libro.setISBN(ISBN);
         Optional <Editorial> editorial = editorialrepositorio.findById(idEditorial);
             if(editorial.isPresent()){
                 Editorial editoria = editorial.get();
@@ -49,17 +50,17 @@ public class LibroServicio {
         librorepositorio.save(libro);
     }
     @Transactional
-    public void modificarLibro(String id,String titulo, Integer anio, Integer cant_ejemplares, Integer cant_prestados, Integer cant_restantes, Boolean alta, String idAutor, String idEditorial) throws ErroresSistema{
+    public void modificarLibro(Long isbn,String titulo, Integer anio, Integer cant_ejemplares, Integer cant_prestados, Integer cant_restantes, Boolean alta, String idAutor, String idEditorial) throws ErroresSistema{
         validar(titulo,anio,cant_ejemplares,cant_prestados,cant_restantes,alta);
-        Optional <Libro> respuesta = librorepositorio.findById(id);
-        if(respuesta.isPresent()){
-            Libro libro = respuesta.get();
-            libro.setAlta(alta);
+            Libro libro = librorepositorio.buscarLibroPorISBN(isbn);
+           
+            libro.setAlta(true);
             libro.setAnio(anio);
             libro.setEjemplares(cant_ejemplares);
             libro.setEjemplaresPrestados(cant_prestados);
             libro.setEjemplaresRestantes(cant_restantes);
             libro.setTitulo(titulo);
+            libro.setISBN(isbn);
             Optional <Editorial> editorial = editorialrepositorio.findById(idEditorial);
             if(editorial.isPresent()){
                 Editorial editoria = editorial.get();
@@ -74,15 +75,9 @@ public class LibroServicio {
             }else{
                 throw new ErroresSistema("Autor no encontrado");
             }
-            
-            
-
             librorepositorio.save(libro);
-        }else{
-            throw new ErroresSistema("No se encontró el Libro");
-        }
         
-    }
+    }   
     @Transactional
     public Libro buscarLibroporId(String id) throws ErroresSistema{
         Optional<Libro> respuesta = librorepositorio.findById(id);
@@ -94,14 +89,9 @@ public class LibroServicio {
         }
     }
     @Transactional
-    public void baja(String id) throws ErroresSistema{
-        Optional<Libro> respuesta = librorepositorio.findById(id);
-        if(respuesta.isPresent()){
-           Libro libro = respuesta.get();
-           librorepositorio.darBajaLibro(libro.getTitulo());
-        }else{
-            throw new ErroresSistema("No se encontró el Libro");
-        }
+    public void baja(String id) throws ErroresSistema{    
+        librorepositorio.darBajaLibro(id);
+              
     }
         @Transactional
     public void alta(String id) throws ErroresSistema{

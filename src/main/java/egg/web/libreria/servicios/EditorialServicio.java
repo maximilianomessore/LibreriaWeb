@@ -63,4 +63,7 @@ public class EditorialServicio {
             throw new ErroresSistema("El campo no puede ser nullo");
         }
     }
+    public Editorial buscarEditorialPorId(String id){
+        return editorialrepositorio.buscarEditorialporId(id);
+    }
 }

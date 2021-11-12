@@ -1,0 +1,11 @@
+egg\web\libreria\LibreriaApplication.class
+egg\web\libreria\servicios\AutorServicio.class
+egg\web\libreria\entidades\Libro.class
+egg\web\libreria\entidades\Autor.class
+egg\web\libreria\repositorios\EditorialRepositorio.class
+egg\web\libreria\servicios\EditorialServicio.class
+egg\web\libreria\repositorios\AutorRepositorio.class
+egg\web\libreria\erroresServicios\ErroresSistema.class
+egg\web\libreria\entidades\Editorial.class
+egg\web\libreria\repositorios\LibroRepositorio.class
+egg\web\libreria\servicios\LibroServicio.class

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EditorialRepositorio extends JpaRepository<Editorial,String>{
     @Query("SELECT e FROM Editorial e WHERE e.id = :id")
-    List<Editorial> buscarEditorialporId(@Param("id") String Id);
+    public Editorial buscarEditorialporId(@Param("id") String Id);
     
     @Modifying
     @Query("UPDATE Editorial e SET e.nombre = :nombre WHERE e.Id = :id")
