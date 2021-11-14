@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AutorRepositorio extends JpaRepository<Autor,String>{
-    @Modifying
+    
     @Query("SELECT a FROM Autor a WHERE a.id = :id")
     public Autor buscarAutorPorId(@Param("id") String id);
     @Modifying
@@ -23,7 +23,7 @@ public interface AutorRepositorio extends JpaRepository<Autor,String>{
     void darAltaAutor(@Param("nombre") String nombre);
     
     @Modifying
-    @Query("UPDATE Autor a SET a.alta = false WHERE a.id = :id")
+    @Query("UPDATE Autor a SET a.alta = 0 WHERE a.id = :id")
     void darBajaAutor( @Param("id") String id);
     
     @Query("SELECT a FROM Autor a WHERE a.alta = true")
