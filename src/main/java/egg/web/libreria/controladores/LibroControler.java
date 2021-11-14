@@ -22,8 +22,7 @@ import org.springframework.web.servlet.view.RedirectView;
 @Controller
 @RequestMapping("/Libro")
 public class LibroControler {
-    @Autowired
-    private LibroRepositorio libro;
+    
     @Autowired
     private LibroServicio service;
     @Autowired

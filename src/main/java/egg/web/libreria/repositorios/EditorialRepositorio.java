@@ -18,12 +18,12 @@ public interface EditorialRepositorio extends JpaRepository<Editorial,String>{
     void modificarEditorial(@Param("nombre") String nombre, @Param("id") String id);
     
     @Modifying
-    @Query("UPDATE Editorial e SET e.alta = true WHERE e.id =: id")
+    @Query("UPDATE Editorial e SET e.alta = 1 WHERE e.id =:id")
     void darAltaEditorial(@Param("id") String id);
     
     @Modifying
-    @Query("UPDATE Editorial e SET e.alta = false WHERE e.nombre =: nombre")
-    void darBajaEditorial(@Param("nombre") String nombre);
+    @Query("UPDATE Editorial e SET e.alta = 0 WHERE e.id =:id")
+    void darBajaEditorial(@Param("id") String id);
     
     @Query("SELECT e FROM Editorial e WHERE e.alta = true")
      List<Editorial> buscarEditorial();
